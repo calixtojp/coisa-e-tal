@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Coisa e tal</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%23c8402f'/><text x='16' y='22' font-family='Georgia,serif' font-size='17' fill='white' text-anchor='middle'>Яa</text></svg>">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div id="gate" class="gate" hidden>
+    <form id="gate-form" class="gate-card" autocomplete="on">
+      <span class="brand-mark" aria-hidden="true">Яa</span>
+      <h2>É dos de vdd?</h2>
+      <p>Então prova: digite a senha.</p>
+      <input type="password" id="gate-pass" name="password" autocomplete="current-password" placeholder="Senha" aria-label="Senha" required>
+      <button type="submit">Sou dos de vdd</button>
+      <p id="gate-error" class="gate-error" role="alert"></p>
+    </form>
+  </div>
+
+  <header class="topbar">
+    <div class="brand">
+      <span class="brand-mark" aria-hidden="true">Яa</span>
+      <div>
+        <h1>Coisa e tal</h1>
+        <p class="tagline">Decore o vídeo, frase a frase</p>
+      </div>
+    </div>
+    <label class="sample-picker">
+      <span>Sample</span>
+      <select id="sample"></select>
+    </label>
+  </header>
+
+  <main class="layout">
+    <section class="stage">
+      <div id="frame" class="frame is-paused">
+        <video id="video" playsinline preload="auto"></video>
+        <span id="counter" class="counter"></span>
+        <svg class="big-play" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.14v13.72a1 1 0 0 0 1.5.86l11-6.86a1 1 0 0 0 0-1.72l-11-6.86A1 1 0 0 0 8 5.14z"/></svg>
+      </div>
+
+      <div class="timeline-row">
+        <span id="time-cur" class="time-label">0:00</span>
+        <div id="timeline" class="timeline" role="slider" aria-label="Posição no vídeo" aria-valuemin="0" aria-valuenow="0">
+          <div id="tl-cues" class="tl-cues"></div>
+          <div id="tl-fill" class="tl-fill"></div>
+          <div id="tl-head" class="tl-head"></div>
+        </div>
+        <span id="time-dur" class="time-label">0:00</span>
+      </div>
+
+      <div id="caption-wrap" class="caption-wrap">
+        <div id="caption" class="caption" aria-live="polite"></div>
+        <div id="translation" class="translation" role="tooltip"></div>
+      </div>
+
+      <div class="transport">
+        <button id="prev" class="icon-btn" title="Frase anterior (←)" aria-label="Frase anterior">
+          <svg viewBox="0 0 24 24"><path d="M18 19.5 8.5 12 18 4.5v15z"/><path d="M5.5 5v14"/></svg>
+        </button>
+        <button id="repeat" class="icon-btn" title="Repetir frase (R)" aria-label="Repetir frase">
+          <svg viewBox="0 0 24 24"><path d="M3.5 12a8.5 8.5 0 1 0 2.6-6.1L3.5 8.5"/><path d="M3.5 3.5v5h5"/></svg>
+        </button>
+        <button id="play" class="play-btn" title="Play / pause (espaço)" aria-label="Play">
+          <svg class="i-play" viewBox="0 0 24 24"><path d="M8 5.14v13.72a1 1 0 0 0 1.5.86l11-6.86a1 1 0 0 0 0-1.72l-11-6.86A1 1 0 0 0 8 5.14z"/></svg>
+          <svg class="i-pause" viewBox="0 0 24 24"><rect x="6" y="4.5" width="4" height="15" rx="1.2"/><rect x="14" y="4.5" width="4" height="15" rx="1.2"/></svg>
+        </button>
+        <button id="next" class="icon-btn" title="Próxima frase (→)" aria-label="Próxima frase">
+          <svg viewBox="0 0 24 24"><path d="m6 4.5 9.5 7.5L6 19.5v-15z"/><path d="M18.5 5v14"/></svg>
+        </button>
+      </div>
+
+      <div class="settings">
+        <div class="chips">
+          <label class="chip"><input type="checkbox" id="loop"><span>Loop da frase</span><kbd>L</kbd></label>
+          <label class="chip"><input type="checkbox" id="loop-video"><span>Loop do vídeo</span><kbd>V</kbd></label>
+          <label class="chip"><input type="checkbox" id="pause-end"><span>Pausar no fim</span><kbd>P</kbd></label>
+          <label class="chip"><input type="checkbox" id="hide"><span>Esconder legenda</span><kbd>H</kbd></label>
+          <label class="chip"><input type="checkbox" id="show-tr"><span>Mostrar tradução</span><kbd>T</kbd></label>
+        </div>
+
+        <div class="rate">
+          <label for="rate" class="rate-label">Velocidade</label>
+          <div class="stepper">
+            <button id="slower" title="Mais devagar (−)" aria-label="Mais devagar">−</button>
+            <span class="rate-field">
+              <input type="number" id="rate" value="1" min="0.05" step="0.05" inputmode="decimal" title="Digite qualquer velocidade">
+              <span aria-hidden="true">×</span>
+            </span>
+            <button id="faster" title="Mais rápido (+)" aria-label="Mais rápido">+</button>
+          </div>
+          <button id="rate-reset" class="link-btn" title="Velocidade normal (0)">1×</button>
+          <small id="rate-hint" class="hint"></small>
+        </div>
+      </div>
+
+      <div id="status" class="status"></div>
+    </section>
+
+    <aside class="panel">
+      <div class="panel-head">
+        <h2>Epístolas</h2>
+        <span id="cue-count" class="count"></span>
+      </div>
+      <ol id="cues" class="cue-list"></ol>
+      <p class="panel-tip">Passe o mouse sobre uma frase para ver a tradução</p>
+    </aside>
+  </main>
+
+  <footer class="shortcuts">
+    <span><kbd>Espaço</kbd> play/pause</span>
+    <span><kbd>←</kbd><kbd>→</kbd> frase anterior/próxima</span>
+    <span><kbd>R</kbd> repetir</span>
+    <span><kbd>L</kbd> loop da frase</span>
+    <span><kbd>V</kbd> loop do vídeo</span>
+    <span><kbd>P</kbd> pausar no fim</span>
+    <span><kbd>H</kbd> esconder</span>
+    <span><kbd>T</kbd> tradução</span>
+    <span><kbd>−</kbd><kbd>+</kbd> velocidade</span>
+    <span><kbd>0</kbd> 1×</span>
+  </footer>
+
+  <script src="srt.js"></script>
+  <script src="crypto.js"></script>
+  <script src="player.js"></script>
+</body>
+</html>

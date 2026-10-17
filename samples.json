@@ -1,0 +1,18 @@
+{
+  "encryption": {
+    "cipher": "AES-256-GCM",
+    "kdf": "PBKDF2-SHA256",
+    "iterations": 600000,
+    "salt": "+NjUN+NYCu4pEWdAb62ekA==",
+    "check": "viwdQzNAp59Nwj60vwe75DKgh9H9uA/RQZgzqFiA2Pp1U5Kykgk="
+  },
+  "samples": [
+    {
+      "id": 1,
+      "name": "sample1",
+      "video": "data/sample1/video.bin",
+      "subtitles": "data/sample1/subtitles.bin",
+      "translation": "data/sample1/translation.bin"
+    }
+  ]
+}
